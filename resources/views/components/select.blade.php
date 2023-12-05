@@ -10,4 +10,7 @@
             </option>
         @endforeach
     </select>
+    @error('status')
+    <div class="text-sm text-red-600">{{ $message }}</div>
+    @enderror
 </div>

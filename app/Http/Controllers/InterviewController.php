@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InterviewRequest;
 use App\Models\Interview;
 use Illuminate\Http\Request;
 
@@ -19,16 +20,8 @@ class InterviewController extends Controller
         return view('interviews.create');
     }
 
-    public function store(Request $request)
+    public function store(InterviewRequest $request)
     {
-        $request->validate([
-            'full_name' => ['required', 'max:50'],
-            'phone_number' => ['required', 'max:50'],
-            'email' => ['required', 'max:50'],
-            'ip_address' => ['required', 'max:20'],
-            'status' => ['required', 'max:9'],
-        ]);
-
         Interview::create($request->all());
 
         return redirect()->route('interview');
@@ -42,16 +35,8 @@ class InterviewController extends Controller
         ]);
     }
 
-    public function update(Request $request, Interview $interview)
+    public function update(InterviewRequest $request, Interview $interview)
     {
-        $request->validate([
-            'full_name' => ['required', 'max:50'],
-            'phone_number' => ['required', 'max:50'],
-            'email' => ['required', 'max:50'],
-            'ip_address' => ['required', 'max:20'],
-            'status' => ['required', 'max:9'],
-        ]);
-
         $interview->update($request->all());
 
         return redirect()->route('interview');
