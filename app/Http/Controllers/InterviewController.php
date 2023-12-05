@@ -10,9 +10,15 @@ class InterviewController extends Controller
 {
     public function index()
     {
-        $interviews = Interview::latest()->paginate(50);
+        $interviews = Interview::latest();
 
-        return view('interviews.index', compact('interviews'));
+        if (\request('search')) {
+            $interviews->where('full_name', 'like', '%' . \request('search') . '%');
+        }
+
+        return view('interviews.index', [
+            'interviews' => $interviews->paginate(50)
+        ]);
     }
 
     public function create()
